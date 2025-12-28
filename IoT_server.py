@@ -103,3 +103,33 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
             </body>
             </html>
             """
+
+            self.wfile.write(success_message.encode())
+
+        except Exception as e:
+            logger.error(f'Error during file upload: {e}')
+            self.send_response(500)
+            self.end_headers()
+            self.wfile.write(b'Internal server error')
+
+    # -------------------------
+    # GET: Static + RSS 
+    # -------------------------
+    def do_GET(self):
+        if self.path == '/success.png':
+            self.serve_image('success.png')
+#      | Eight space marker | Note: two seperate actions
+        elif self.path == '/fetch_rsa':            
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(self.fetch_rss_feed()).encode())
+            
+        else:
+            super().do_GET()
+            
+    # -------------------------
+    # RSS Feed
+    # -------------------------
+            
+            

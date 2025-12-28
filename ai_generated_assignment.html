@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assignment of the Week — Template</title>
+  <style>
+    :root { color-scheme: dark; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0b0f14; color:#e6edf3; }
+    header { padding: 20px; border-bottom: 1px solid #1f2a37; background:#0f1520; position: sticky; top: 0; }
+    h1 { margin: 0 0 6px; font-size: 22px; }
+    .meta { color:#9fb0c0; font-size: 13px; }
+    main { max-width: 980px; margin: 0 auto; padding: 18px; }
+    .card { background:#0f1520; border:1px solid #1f2a37; border-radius: 12px; padding: 16px; margin: 12px 0; }
+    h2 { margin: 0 0 10px; font-size: 18px; }
+    ul, ol { margin: 8px 0 0 20px; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    pre { background:#0b0f14; border:1px solid #1f2a37; border-radius: 10px; padding: 12px; overflow:auto; }
+    .tag { display:inline-block; padding: 3px 8px; border:1px solid #2b3a4e; border-radius: 999px; font-size: 12px; color:#b7c7d6; margin-right: 6px; }
+    .warn { color:#ffd28a; }
+    .ok { color:#79e2b4; }
+    footer { padding: 16px; color:#9fb0c0; border-top: 1px solid #1f2a37; text-align:center; }
+    a { color:#9ad0ff; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <!-- CHANGE THESE EACH WEEK -->
+    <h1>Assignment of the Week: <span style="color:#9ad0ff;">BeEF Hook via Reflected XSS</span></h1>
+    <div class="meta">
+      <span class="tag">Week #: 01</span>
+      <span class="tag">Difficulty: Beginner</span>
+      <span class="tag">Estimated Time: 30–60 min</span>
+      <span class="tag">Category: Web / Client-Side</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Scenario</h2>
+      <!-- EDIT THIS PARAGRAPH -->
+      <p>
+        You are assessing an internal training web application. You suspect user input is reflected without sanitization.
+        Your goal is to validate whether a client-side compromise is possible in a controlled lab.
+      </p>
+      <p class="warn">
+        Lab only. Authorized testing only. Do not deploy DVWA or BeEF on public systems.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Objective</h2>
+      <!-- EDIT THIS LIST -->
+      <ul>
+        <li>Confirm reflected input behavior.</li>
+        <li>Demonstrate JavaScript execution.</li>
+        <li>Hook a browser using BeEF.</li>
+        <li>Demonstrate one safe post-exploitation command (e.g., Alert Dialog).</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Environment</h2>
+      <!-- EDIT AS NEEDED -->
+      <ul>
+        <li><strong>Target:</strong> DVWA on Ubuntu Server (no GUI) or RHEL</li>
+        <li><strong>Attacker:</strong> Kali Linux with BeEF</li>
+        <li><strong>Network:</strong> Same LAN / Host-only / NAT (no Internet exposure)</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Rules of Engagement</h2>
+      <ul>
+        <li>No denial-of-service.</li>
+        <li>No persistence / no changing server files.</li>
+        <li>Capture evidence using screenshots and short notes.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Tasks</h2>
+      <!-- EDIT THESE TASKS EACH WEEK -->
+      <ol>
+        <li>Navigate to the vulnerable page in DVWA.</li>
+        <li>Prove reflection (text appears in output).</li>
+        <li>Prove JavaScript execution (use a safe test).</li>
+        <li>Start BeEF and identify the Hook URL.</li>
+        <li>Inject the hook and confirm the browser appears under “Hooked Browsers”.</li>
+        <li>Run one safe BeEF command (e.g., Alert Dialog) and capture evidence.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Flags</h2>
+      <!-- OPTIONAL: CHANGE OR REMOVE FLAGS -->
+      <pre>
+FLAG{reflected_input_confirmed}
+FLAG{javascript_execution_confirmed}
+FLAG{browser_hooked_successfully}
+FLAG{client_side_control_achieved}
+      </pre>
+    </section>
+
+    <section class="card">
+      <h2>Deliverables</h2>
+      <!-- EDIT DELIVERABLES -->
+      <ul>
+        <li>Screenshot: DVWA page showing reflected input.</li>
+        <li>Screenshot: Evidence of JavaScript execution (or a safe indicator).</li>
+        <li>Screenshot: BeEF panel showing hooked browser.</li>
+        <li>Screenshot: BeEF command result (e.g., Alert Dialog popup).</li>
+        <li>Short write-up (5–10 sentences): What happened and why it worked.</li>
+        <li>Mitigation (2–3 bullets): How to prevent this in real apps.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Notes / Observations</h2>
+      <!-- KEEP A RUNNING LOG -->
+      <ul>
+        <li><strong>DVWA IP:</strong> ____________</li>
+        <li><strong>Kali IP:</strong> ____________</li>
+        <li><strong>DVWA Security Level:</strong> Low / Medium / High</li>
+        <li><strong>What worked / what failed:</strong> ____________________________</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Instructor / Self-Check</h2>
+      <ul>
+        <li class="ok">✅ I can explain the difference between server compromise and browser compromise.</li>
+        <li class="ok">✅ I can describe at least one mitigation (CSP / output encoding / HttpOnly cookies).</li>
+        <li class="ok">✅ I captured evidence and wrote a short summary.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div>Assignment Template • Update weekly • Keep it local & ethical</div>
+  </footer>
+</body>
+</html>

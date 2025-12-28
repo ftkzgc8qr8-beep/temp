@@ -195,8 +195,13 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
             self.move_assignment_files(filepath)
         else:
             self.move_assignment_files(filepath)
-#----I would like to any other file type to an other directory
+#----I would like any other file type to move to `other` directory
     def move_orchid_files(self, filepath):
         self.ensure_directory('orchids')
         shutil.move(filepath, os.path.join('orchids', os.path.basename(filepath)))
+
+    def move_doc_files(self, filepath):
+        self.ensure_directory('docs')
+        shutil.move(filepath, os.path.join('docs', os.path.basename(filepath)))
+        
         

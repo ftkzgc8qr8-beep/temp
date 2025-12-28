@@ -8,7 +8,7 @@ import requests
 import feedparser
 import cgi
 
-# =======================
+# =======================[ Captin Clip Github => https://github.com/ftkzgc8qr8-beep/temp/blob/main/IoT_server.py
 # Logging Confirmation
 # =======================
 logger = logging.getLogger('server_logger')
@@ -103,3 +103,50 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
             </body>
             </html>
             """
+#---Four Space Marker ----> Helpers below -->
+    def serve_image(self, filename):
+         if not os.path.exists(filename):
+             self.send_response(404)
+             self.end_headers()
+             return
+#-------| Eight Space Marker           
+         with open(filename, 'rb') as f:
+            self.send_response(200)
+            self.send_header('Content-type', 'image/png')
+            self.end_headers()
+            self.wfile.write(f.read())
+#---Four Space Marker
+    def ensure_directory(self, directory):
+        os.makedirs(directory, exist_ok=True)
+#-------| Eight Space Marker
+    def sanitize_filename(self, filename):
+        filename = os.path.basename(filename)
+        if '..' in filename or filename.startswitch('/'):
+            return 'fake_passwd'
+        return re.sub(r'[^a-zA-Z0-9._-]', '_', filename)
+
+    # -------------------------
+    # East Side Server File Rules
+    # -------------------------
+    def move_file(self, filepath):
+        filename = os.path.basename(filepath).lower()
+#-------| Eight Space Marker
+        if filename.startswith('orchid_'):
+            self.move_orchid_files(filepath)
+        elif filename.startswith('doc_')
+            self.move_doc_files(filepath)
+        elif filename.startswith('after_'):
+            self.move_afterwork_files(filepath)
+        elif filename.startswith('assign_'):
+            self.move_assignment_files(filepath)
+        else:
+            self.move_assignment_files(filepath)
+#----I would like any other file type to move to `other` directory
+    def move_orchid_files(self, filepath):
+        self.ensure_directory('orchids')
+        shutil.move(filepath, os.path.join('orchids', os.path.basename(filepath)))
+
+    def move_doc_files(self, filepath):
+        self.ensure_directory('docs')
+        shutil.move(filepath, os.path.join('docs', os.path.basename(filepath)))
+        

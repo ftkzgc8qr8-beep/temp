@@ -104,6 +104,60 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
             </html>
             """
 #---Four Space Marker ----> Helpers below -->
+            self.wfile.write(success_message.encode())
+
+        except Exception as e:
+            logger.error(f'Error during file upload: {e}')
+            self.send_response(500)
+            self.end_headers()
+            self.wfile.write(b'Internal server error')
+
+    # -------------------------
+    # GET: Static + RSS
+    # -------------------------
+    def do_GET(self):
+        if self.path == '/success.png':
+            self.serve_image('success.png')
+
+        elif self.path == '/fetch_rss':
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(self.fetch_rss_feed()).encode())
+
+        else:
+            super().do_GET()
+
+    # -------------------------
+    # RSS Feed
+    # -------------------------
+    def fetch_rss_feed(self):
+        url = 'https://www.securityweek.com/feed/'
+        headers = {'User-Agent': 'Mozilla/5.0'}
+
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+            if response.status_code != 200:
+                logger.error(f'RSS HTTP {response.status_code}')
+                return []
+
+            feed = feedparser.parse(response.content)
+            return [
+                {
+                    'title': entry.title,
+                    'link': entry.link,
+                    'published': entry.published
+                }
+                for entry in feed.entries[:5]
+            ]
+
+        except Exception as e:
+            logger.error(f'Error fetching RSS feed: {e}')
+            return []
+
+    # -------------------------
+    # Helpers
+    # -------------------------
     def serve_image(self, filename):
          if not os.path.exists(filename):
              self.send_response(404)
@@ -149,4 +203,5 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
     def move_doc_files(self, filepath):
         self.ensure_directory('docs')
         shutil.move(filepath, os.path.join('docs', os.path.basename(filepath)))
+        #---- Added missing logic -- cont writting below
         

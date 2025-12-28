@@ -131,5 +131,60 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
     # -------------------------
     # RSS Feed
     # -------------------------
-            
-            
+    def fetch_rss_feed(self):
+        url = 'https://www.securityweek.com/feed/'
+        headers = {'User-Agent': 'Mozilla/5.0'}
+
+        try:
+            response = requests.get(url, headers=headers, timeout=10)
+            if response.status_code != 200:
+                logger.error(f.RSS HTTP {response.status_code}')
+                return []
+
+            feed = feedparser.parse(response.content)
+            return [
+                {
+                    'title': entry.title,
+                    'link': entry.link,
+                    'published': entry.published
+                }
+                for entry in feed.entries[:5]
+            ]
+
+        except Exeception as e:
+            logger.error(f'Error fetching RSS feed: {e}')
+            return []
+
+    # -------------------------
+    # Helpers
+#---Four Space Marker ----> Helpers below -->
+    def serve_image(self, filename):
+         if not os.path.exists(filename):
+             self.send_response(404)
+             self.end_headers()
+             return
+#-------| Eight Space Marker           
+         with open(filename, 'rb') as f:
+            self.send_response(200)
+            self.send_header('Content-type', 'image/png')
+            self.end_headers()
+            self.wfile.write(f.read())
+#---Four Space Marker
+    def ensure_directory(self, directory):
+        os.makedirs(directory, exist_ok=True)
+#-------| Eight Space Marker
+    def sanitize_filename(self, filename):
+        filename = os.path.basename(filename)
+        if '..' in filename or filename.startswitch('/'):
+            return 'fake_passwd'
+        return re.sub(r'[^a-zA-Z0-9._-]', '_', filename)
+
+    # -------------------------
+    # East Side Server File Rules
+    # -------------------------
+        
+
+
+    
+        
+        

@@ -1,2 +1,3 @@
 # temp
-a temp temp dir for writing code in mimis lounge. 
+a temp temp dir for writing code: @ Mimi's Cafe
+

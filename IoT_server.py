@@ -182,9 +182,21 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
     # -------------------------
     # East Side Server File Rules
     # -------------------------
-        
-
-
-    
-        
+    def move_file(self, filepath):
+        filename = os.path.basename(filepath).lower()
+#-------| Eight Space Marker
+        if filename.startswith('orchid_'):
+            self.move_orchid_files(filepath)
+        elif filename.startswith('doc_')
+            self.move_doc_files(filepath)
+        elif filename.startswith('after_'):
+            self.move_afterwork_files(filepath)
+        elif filename.startswith('assign_'):
+            self.move_assignment_files(filepath)
+        else:
+            self.move_assignment_files(filepath)
+#----I would like to any other file type to an other directory
+    def move_orchid_files(self, filepath):
+        self.ensure_directory('orchids')
+        shutil.move(filepath, os.path.join('orchids', os.path.basename(filepath)))
         

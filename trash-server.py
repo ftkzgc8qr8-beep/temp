@@ -203,5 +203,30 @@ class CustomHTTPRequestHandler(SimpleHTTPRequestHandler):
     def move_doc_files(self, filepath):
         self.ensure_directory('docs')
         shutil.move(filepath, os.path.join('docs', os.path.basename(filepath)))
-        #---- Added missing logic -- cont writting below
+        #---- Added missing logic -- cont writting below -->
+    def move_afterwork_files(self, filepath):
+        self.ensure_directory('after_work')
+        shutil.move(filepath, os.path.join('after-work', os.path.basename(filepath)))
+
+    def move_assignment_files(self, filepath):
+        self.ensure_directory('assignments')
+        shutil.move(filepath, os.path.join('assignments', os.path.basename(filepath)))
+
+
+#---Four space marker
+# Server Bootstrap
+#---
+def run(server_class=HTTPServer,
+        handler_class=CustomHTTPRequestHandler,
+        port=8000):
+    server_address = ('', port)
+    httpd = server_class(server_address, handler_class)
+    logger.info(f'Starting httpd on port {port}...')
+    httpd.serve_forever()
+
+
+if __name__ == '__main__':
+    run()
+#--- Done ---
+        
         
